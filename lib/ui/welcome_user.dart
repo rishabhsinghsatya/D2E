@@ -8,7 +8,8 @@ import 'package:flutter_animator/flutter_animator.dart';
 import 'package:sizer/sizer.dart';
 
 class WelcomeUserScreen extends StatefulWidget {
-  const WelcomeUserScreen({super.key});
+  final String name;
+  const WelcomeUserScreen({super.key, required this.name});
 
   @override
   State<WelcomeUserScreen> createState() => _WelcomeUserScreenState();
@@ -32,7 +33,7 @@ class _WelcomeUserScreenState extends State<WelcomeUserScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Hello! \nTeacher",
+                          "Hello! \n" + widget.name.toString(),
                           style: TextStyle(
                               fontSize: 25.sp,
                               color: AppColors.primaryTextTextColor,
@@ -58,7 +59,9 @@ class _WelcomeUserScreenState extends State<WelcomeUserScreen> {
                                 duration: Duration(seconds: 3)),
                             child: Text(
                               textAlign: TextAlign.start,
-                              "Hello Teacher's !\nYour welcome again. Now you are free to make your own classroom. ",
+                              "Hello " +
+                                  widget.name.toString() +
+                                  "!\nYour welcome again. Now you are free to make your own classroom. ",
                               style: TextStyle(
                                   color: AppColors.textColor, fontSize: 13.sp),
                             ),
@@ -73,21 +76,22 @@ class _WelcomeUserScreenState extends State<WelcomeUserScreen> {
                   SizedBox(
                     height: 8.h,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.sp),
-                    child: FadeInRight(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.all(8.sp),
-                          filled: true,
-                          fillColor: Colors.white,
-                          hintText: "Enter Your Name...",
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 12.sp),
+                  //   child: FadeInRight(
+                  //     child: TextFormField(
+                  //       controller: NameController,
+                  //       decoration: InputDecoration(
+                  //         isDense: true,
+                  //         contentPadding: EdgeInsets.all(8.sp),
+                  //         filled: true,
+                  //         fillColor: Colors.white,
+                  //         hintText: "Enter Your Name...",
+                  //         border: OutlineInputBorder(),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 12.h,
                   ),

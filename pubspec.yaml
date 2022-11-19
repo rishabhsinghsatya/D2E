@@ -37,6 +37,10 @@ dependencies:
   flutter_animator: ^3.2.2
   intl_phone_field: ^3.1.0
   pinput: ^2.2.16
+  firebase_core: ^2.2.0
+  firebase_auth: ^4.1.2
+  fluttertoast: ^8.1.1
+  rename: ^2.0.1
 
 dev_dependencies:
   flutter_test:

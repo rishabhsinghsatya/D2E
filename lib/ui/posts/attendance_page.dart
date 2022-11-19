@@ -46,7 +46,7 @@ class _AttendancePageScreenState extends State<AttendancePageScreen> {
                         width: 10.w,
                       ),
                       SmallButton(
-                        myIcon: Icon(
+                        myIcon: const Icon(
                           Icons.done,
                           color: Colors.white,
                         ),
@@ -57,7 +57,7 @@ class _AttendancePageScreenState extends State<AttendancePageScreen> {
                         width: 3.w,
                       ),
                       SmallButton(
-                        myIcon: Icon(
+                        myIcon: const Icon(
                           Icons.cancel_outlined,
                           color: Colors.white,
                         ),

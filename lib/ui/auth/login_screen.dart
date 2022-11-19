@@ -1,9 +1,10 @@
 import 'package:d2e/res/background_img.dart';
 import 'package:d2e/res/color.dart';
 import 'package:d2e/ui/otp_verify.dart';
+import 'package:d2e/utils/utils.dart';
 import 'package:d2e/widgets/buttons.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -17,7 +18,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final nameController = TextEditingController();
-  final phoneController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+  bool loading = false;
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 1.h,
                           ),
                           IntlPhoneField(
-                            controller: phoneController,
+                            controller: phoneNumberController,
                             decoration: InputDecoration(
                               labelText: 'Phone Number',
                               // border: OutlineInputBorder(
@@ -99,12 +102,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           RoundButton(
                               title: "Get OTP",
+                              loading: loading,
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            VerifyOTPScreen()));
+                                setState(() {
+                                  loading = true;
+                                });
+                                auth.verifyPhoneNumber(
+                                    phoneNumber: phoneNumberController.text,
+                                    verificationCompleted: (_) {},
+                                    verificationFailed: ((e) {
+                                      utils().toastMessage(e.toString());
+                                    }),
+                                    codeSent:
+                                        (String verificationID, int? token) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  VerifyOTPScreen(
+                                                    verificationID:
+                                                        verificationID,
+                                                  )));
+                                    },
+                                    codeAutoRetrievalTimeout: (e) {
+                                      utils().toastMessage(e.toString());
+                                    });
                               })
                         ],
                       ),
